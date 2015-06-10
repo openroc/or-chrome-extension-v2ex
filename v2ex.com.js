@@ -100,6 +100,7 @@ function showContent(host, tid) {
     var ts = Date.now(), d = data.replace(/<head[^>]*>((.|[\n\r])*)<\/head>/im, '');
     var body = /<body[^>]*>((.|[\n\r])*)<\/body>/im.test(d) ? RegExp.$1 : '';
     var page = $.parseHTML(body);
+    content.html('');
     $(page).find('.cell .topic_content').each(function(){
       content.html($(this));
     });
