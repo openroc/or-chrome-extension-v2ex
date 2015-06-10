@@ -75,6 +75,7 @@ function closeContent(host, tid) {
 }
 
 function showContent(host, tid) {
+  var start = Date.now();
   // close others
   for(var id in map) {
     if(map[id].status == 1) closeContent(map[id].host, id);
@@ -95,6 +96,7 @@ function showContent(host, tid) {
   status = 1; //loading
   $.get('/t/'+tid)
   .done(function(data){
+    var loadcost = Date.now() - start;
     var ts = Date.now(), d = data.replace(/<head[^>]*>((.|[\n\r])*)<\/head>/im, '');
     var body = /<body[^>]*>((.|[\n\r])*)<\/body>/im.test(d) ? RegExp.$1 : '';
     var page = $.parseHTML(body);
@@ -110,9 +112,9 @@ function showContent(host, tid) {
     });
     if(comments.html().length>0) comments.show();
     //
-    var cost = (Date.now()-ts);
-    console.log('cost:',cost);
-    wrapper.append('<div class="small fade" style="padding: 10px 10px 0 10px; text-align:right;"> loaded @ '+ cost+'ms </div>');
+    var parsecost = (Date.now()-ts);
+    console.log('load cost:', loadcost, 'parse cost:', parsecost);
+    wrapper.append('<div class="small fade" style="padding: 10px 10px 0 10px; text-align:right;"> loaded @ load '+ loadcost+'ms · parse '+ parsecost+'ms </div>');
     // update host top
     update('div.cell.item');
     update('#TopicsNode .cell');
