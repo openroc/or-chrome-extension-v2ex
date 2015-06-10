@@ -39,7 +39,7 @@ function check() {
 }
 
 function jump() {
-  window.location.href = "/t/"+list[currindex];
+  window.open('/t/'+list[currindex]);
 }
 
 function gettid(host) {
