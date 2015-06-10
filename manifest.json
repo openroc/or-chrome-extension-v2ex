@@ -9,10 +9,10 @@
     "all_frames": true,
     "run_at":     "document_start",
     "matches":    [
-      "http://v2ex.com/",
+      "http://v2ex.com/?*",
       "http://v2ex.com/go/*",
       "http://v2ex.com/member/*",
-      "https://v2ex.com/",
+      "https://v2ex.com/?*",
       "https://v2ex.com/go/*",
       "https://v2ex.com/member/*"
       ],
