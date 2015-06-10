@@ -1,5 +1,5 @@
 /*
-    
+
 */
 
 var loading = 'data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==';
@@ -7,6 +7,7 @@ var map = {};
 var list = [];
 var currindex = -1;
 var status = 0; // idle
+var isTopicLinkClick = false;
 
 function getTopicId(url) {
   return (/\/t\/(\d+)/i.test(url)? RegExp.$1 : undefined);
@@ -124,6 +125,10 @@ function showContent(host, tid) {
 }
 
 function onItemClick(host) {
+  if(isTopicLinkClick) {
+    isTopicLinkClick = false;
+    return;
+  }
   var tid = gettid(host);
   currindex = list.indexOf(tid);
   return (map[tid] && map[tid].status == 1) ? closeContent(host, tid) : showContent(host, tid);
@@ -148,6 +153,8 @@ document.addEventListener('DOMContentLoaded', function(){
         break;
     }
   });
+
+  $('.cell a').click(function(ev){ isTopicLinkClick = true; }); // for fix a click event
 
   init('div.cell.item');
   init('#TopicsNode .cell');
