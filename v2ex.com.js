@@ -26,6 +26,12 @@ function goto(offset) {
   onItemClick(map[tid].host);
 }
 
+function close() {
+  currindex = getIndex(currindex, 0);
+  var tid = list[currindex];
+  closeContent(map[tid].host, tid);
+}
+
 function check() {
   if(status == 1) return;
   var nextindex = getIndex(currindex, 1);
@@ -144,15 +150,20 @@ document.addEventListener('DOMContentLoaded', function(){
       case 13: // enter
         jump();
         break;
+      case 67: // c
+        if (!ev.ctrlKey && !ev.metaKey && !ev.altKey) close();
+        break;
       case 74: // j
-        goto(1);
+        if (!ev.ctrlKey && !ev.metaKey && !ev.altKey) goto(1);
         break;
       case 75: // k
-        goto(-1);
+        if (!ev.ctrlKey && !ev.metaKey && !ev.altKey) goto(-1);
         break;
       case 32: // space
-        check();
-        ev.preventDefault();
+        if (ev.ctrlKey) {
+          check();
+          ev.preventDefault();
+        }
         break;
     }
   });

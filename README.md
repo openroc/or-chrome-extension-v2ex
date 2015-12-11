@@ -8,10 +8,11 @@ read v2 topic like reader
 
 ## Short-Key
 
-  - j, goto next
-  - k, goto prev
-  - enter, open current topic
-  - space, screen page down and open next one
+  - j, goto next topic
+  - k, goto prev topic
+  - cc, close current topic 
+  - enter, open current topic when it opend
+  - ctrl+space, screen page down and open next one
 
 
 Have fun & enjoy coding life~. ^_^.v 
